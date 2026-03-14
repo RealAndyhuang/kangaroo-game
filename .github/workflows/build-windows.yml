@@ -28,9 +28,15 @@ jobs:
     
     - name: Build EXE
       run: |
-        pyinstaller kangaroo_game_3.spec --clean
+        pyinstaller kangaroo_game_3.spec --clean -y
     
     - name: Create ZIP
       run: |
         cd dist
         Compress-Archive -Path KangarooAdventure3 -DestinationPath KangarooAdventure3_Windows.zip
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: KangarooAdventure3_Windows
+        path: dist/KangarooAdventure3_Windows.zip
