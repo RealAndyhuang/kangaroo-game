@@ -1,10 +1,12 @@
 name: Build Windows EXE
 
+
 on:
   push:
     tags:
       - 'v*'
   workflow_dispatch:
+
 
 jobs:
   build-windows:
@@ -21,22 +23,16 @@ jobs:
     
     - name: Install dependencies
       run: |
-        cd kangaroo-game-3.0
+        cd kangaroo-game
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
     - name: Build EXE
       run: |
-        cd kangaroo-game-3.0
+        cd kangaroo-game
         pyinstaller kangaroo_game_3.spec --clean
     
     - name: Create ZIP
       run: |
-        cd kangaroo-game-3.0/dist
+        cd kangaroo-game/dist
         Compress-Archive -Path KangarooAdventure3 -DestinationPath KangarooAdventure3_Windows.zip
-    
-    - name: Upload to Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: kangaroo-game-3.0/dist/KangarooAdventure3_Windows.zip
-        token: ${{ secrets.GITHUB_TOKEN }}
