@@ -23,16 +23,14 @@ jobs:
     
     - name: Install dependencies
       run: |
-        cd kangaroo-game
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
     - name: Build EXE
       run: |
-        cd kangaroo-game
         pyinstaller kangaroo_game_3.spec --clean
     
     - name: Create ZIP
       run: |
-        cd kangaroo-game/dist
+        cd dist
         Compress-Archive -Path KangarooAdventure3 -DestinationPath KangarooAdventure3_Windows.zip
