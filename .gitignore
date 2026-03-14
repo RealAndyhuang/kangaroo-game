@@ -1,0 +1,31 @@
+# PyInstaller
+build/
+dist/
+*.spec.backup
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large binary files (keep in releases, not repo)
+*.zip
+*.exe
+*.dmg
