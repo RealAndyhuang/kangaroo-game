@@ -1,0 +1,42 @@
+name: Build Windows EXE
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        cd kangaroo-game-3.0
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Build EXE
+      run: |
+        cd kangaroo-game-3.0
+        pyinstaller kangaroo_game_3.spec --clean
+    
+    - name: Create ZIP
+      run: |
+        cd kangaroo-game-3.0/dist
+        Compress-Archive -Path KangarooAdventure3 -DestinationPath KangarooAdventure3_Windows.zip
+    
+    - name: Upload to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: kangaroo-game-3.0/dist/KangarooAdventure3_Windows.zip
+        token: ${{ secrets.GITHUB_TOKEN }}
